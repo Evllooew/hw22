@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/example/dz22/
+/src/main/java/Exception/
+/src/main/java/service/
