@@ -1,6 +1,9 @@
-package service;
+package com.example.dz22.service;
 
 import com.example.dz22.Employee;
+import com.example.dz22.Exception.EmployeeAlreadyAddedException;
+import com.example.dz22.Exception.EmployeeNotFoundException;
+import com.example.dz22.Exception.MaximumEmployeeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,11 @@ public class EmployeeService {
     public EmployeeService() {
         employeeMap = new HashMap<>();
     }
-    @Autowired
+
     public Collection<Employee> getEmployeeMap() {
         return employeeMap.values();
     }
-    @Autowired
+
     public Employee addEmployee(String name, String surname, int salary, int department) throws MaximumEmployeeException, EmployeeAlreadyAddedException {
         Employee employee = new Employee(name, surname, department, salary);
         if (!employeeMap.containsKey(name + surname)) {
@@ -33,19 +36,19 @@ public class EmployeeService {
         }
     }
 
-    @Autowired
+
     public Employee removeEmployee(String name, String surname) throws EmployeeNotFoundException {
         if (employeeMap.containsKey(name + surname)) {
             Employee removedEmployee = employeeMap.remove(name + surname);
             return new Employee(removedEmployee.getName(), removedEmployee.getSurname());
         }
-        throw new EmployeeNotFoundException();
+        throw new EmployeeNotFoundException("Сотрудник не найден");
     }
     @Autowired
     public static Employee findEmployee(String name, String surname) throws EmployeeNotFoundException {
         if (employeeMap.containsKey(name + surname)) {
             return employeeMap.get(name + surname);
         }
-        throw new EmployeeNotFoundException();
+        throw new EmployeeNotFoundException("Сотрудник не найден");
     }
 }

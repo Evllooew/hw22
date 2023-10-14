@@ -1,10 +1,12 @@
 package com.example.dz22;
 
+import com.example.dz22.Exception.EmployeeNotFoundException;
+import com.example.dz22.service.DepartmentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.DepartmentService;
+
 
 import java.util.List;
 import java.util.Map;
@@ -19,12 +21,12 @@ public class DepartmentController {
     }
 
     @GetMapping("/max-salary")
-    public Employee getMaxSalaryEmployeeInDepartment(@RequestParam int departmentId) {
+    public Employee getMaxSalaryEmployeeInDepartment(@RequestParam int departmentId) throws EmployeeNotFoundException {
         return departmentService.findMaxSalaryByDepartment(departmentId);
     }
 
     @GetMapping("/min-salary")
-    public Employee getMinSalaryEmployeeInDepartment(@RequestParam int departmentId) {
+    public Employee getMinSalaryEmployeeInDepartment(@RequestParam int departmentId) throws EmployeeNotFoundException {
         return departmentService.findMinSalaryByDepartment(departmentId);
     }
 
@@ -33,7 +35,7 @@ public class DepartmentController {
         return departmentService.getTotalSalaryCostByDepartment(departmentId);
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", params = "departmentId")
     public List<Employee> getEmployeesInDepartment(@RequestParam int departmentId) {
         return (List<Employee>) departmentService.getAllEmployeesByDepartment(departmentId);
     }
