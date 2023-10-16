@@ -37,7 +37,7 @@ public class DepartmentController {
 
     @GetMapping(value = "/all", params = "departmentId")
     public List<Employee> getEmployeesInDepartment(@RequestParam int departmentId) {
-        return (List<Employee>) departmentService.getAllEmployeesByDepartment(departmentId);
+        return  departmentService.getAllEmployeesByDepartment(departmentId);
     }
 
     @GetMapping("/all")

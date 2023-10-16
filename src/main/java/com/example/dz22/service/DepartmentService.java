@@ -39,14 +39,22 @@ public class DepartmentService {
                 .sum();
     }
 
-    public Map<Integer, List<Employee>> getAllEmployeesByDepartment(int department) {
+    public List<Employee> getAllEmployeesByDepartment(int department) {
+
         return employeeService.getEmployeeMap().stream()
+
                 .filter(employee -> employee.getDepartment() == department)
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.toUnmodifiableList()));
+
+                .collect(Collectors.toUnmodifiableList());
+
+
     }
 
     public Map<Integer, List<Employee>> getAllEmployees() {
+
         return employeeService.getEmployeeMap().stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.toUnmodifiableList()));
+
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
     }
 }

@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
-    public EmployeeController(EmployeeService employeeService){
+
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam String name, @RequestParam String surname, @RequestParam int salary,
-                                @RequestParam int department) {
-        try {
-            return employeeService.addEmployee(name, surname, salary, department);
-        } catch (MaximumEmployeeException | EmployeeAlreadyAddedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+                                @RequestParam int department) throws EmployeeAlreadyAddedException {
+        return employeeService.addEmployee(name,surname,salary,department);
+}
+
+
+
+
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam String name, @RequestParam String surname) throws EmployeeNotFoundException {
         return employeeService.removeEmployee(name,surname);
